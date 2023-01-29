@@ -7,7 +7,7 @@ public class PlayerControlller : MonoBehaviour
     public float moveSpeed, runSpeed, gravityMod, jumpPow;
     public CharacterController charCon;
 
-    public Vector3 moveInput;
+    private Vector3 moveInput;
 
     public Transform camTrans;
 
@@ -20,6 +20,10 @@ public class PlayerControlller : MonoBehaviour
     public LayerMask whatIsGround;
 
     public Animator animate;
+
+    public GameObject bullet;
+    public Transform firePoint;
+
 
     // Start is called before the first frame update
     void Start()
@@ -90,11 +94,30 @@ public class PlayerControlller : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x ,transform.rotation.eulerAngles.z);
         camTrans.rotation = Quaternion.Euler(camTrans.rotation.eulerAngles + new Vector3 (-mouseInput.y,0f,0f));
 
-
-
         //For animation
 
         animate.SetFloat("MovSpeed", moveInput.magnitude);
         animate.SetBool("onGround", canJump);
+
+
+        //For Shooting
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(camTrans.position, camTrans.forward, out hit, 50))
+            {
+                if(Vector3.Distance(camTrans.position,hit.point) > 2){
+                    firePoint.LookAt(hit.point);
+                }
+            }
+            else
+            {
+                firePoint.LookAt(camTrans.position + (camTrans.forward * 50));
+            }
+
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
     }
 }
