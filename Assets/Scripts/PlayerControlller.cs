@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControlller : MonoBehaviour
 {
+    public static PlayerControlller instance;
+
     public float moveSpeed, runSpeed, gravityMod, jumpPow;
     public CharacterController charCon;
 
@@ -24,7 +26,10 @@ public class PlayerControlller : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -34,9 +39,6 @@ public class PlayerControlller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //moveInput.x = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        //moveInput.z = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-
         float yStore = moveInput.y;
 
         Vector3 vertMove = transform.forward * Input.GetAxisRaw("Vertical");
