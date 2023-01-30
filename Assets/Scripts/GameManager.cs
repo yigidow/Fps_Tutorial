@@ -1,10 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameManager instance;
+
+    public float waitAfterDied = 2f;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         //Cursor.visible = false;
@@ -15,5 +24,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void PlayerDied()
+    {
+        StartCoroutine(PlayerDeathCorutine());
+    }
+
+    public IEnumerator PlayerDeathCorutine()
+    {
+        yield return new WaitForSeconds(waitAfterDied);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

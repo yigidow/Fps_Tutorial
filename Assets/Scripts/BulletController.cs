@@ -43,7 +43,7 @@ public class BulletController : MonoBehaviour
         }
         if (other.gameObject.tag == "Player" && damagePlayer)
         {
-            Debug.Log("auch" + transform.position);
+            PlayerHealth.instance.DamagePayer(damage);
         }
         Destroy(this.gameObject);
         Instantiate(impactEffect, transform.position + (transform.forward * -bulletSpeed * Time.deltaTime), transform.rotation);

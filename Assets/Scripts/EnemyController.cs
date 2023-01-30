@@ -99,39 +99,44 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                shootTimeCounter -= Time.deltaTime;
-
-                if (shootTimeCounter > 0)
+                if (PlayerControlller.instance.gameObject.activeInHierarchy)
                 {
-                    fireCount -= Time.deltaTime;
 
-                    if (fireCount <= 0)
+
+                    shootTimeCounter -= Time.deltaTime;
+
+                    if (shootTimeCounter > 0)
                     {
-                        fireCount = fireRate;
+                        fireCount -= Time.deltaTime;
 
-                        firePoint.LookAt(PlayerControlller.instance.transform.position + new Vector3(0f, 1.5f, 0f));
-
-                        //Check the angle
-
-                        Vector3 targetDirection = PlayerControlller.instance.transform.position - transform.position;
-                        float angle = Vector3.SignedAngle(targetDirection, transform.forward, Vector3.up);
-
-                        if(Mathf.Abs(angle) < 30)
+                        if (fireCount <= 0)
                         {
-                            Instantiate(bullet, firePoint.position, firePoint.rotation);
+                            fireCount = fireRate;
 
-                            anim.SetTrigger("fireShot");
+                            firePoint.LookAt(PlayerControlller.instance.transform.position + new Vector3(0f, 1.5f, 0f));
+
+                            //Check the angle
+
+                            Vector3 targetDirection = PlayerControlller.instance.transform.position - transform.position;
+                            float angle = Vector3.SignedAngle(targetDirection, transform.forward, Vector3.up);
+
+                            if (Mathf.Abs(angle) < 30)
+                            {
+                                Instantiate(bullet, firePoint.position, firePoint.rotation);
+
+                                anim.SetTrigger("fireShot");
+                            }
+                            else
+                            {
+                                shotWaitCounter = waitBetweenShots;
+                            }
                         }
-                        else
-                        {
-                            shotWaitCounter = waitBetweenShots;
-                        }
+                        navAgent.destination = transform.position;
                     }
-                    navAgent.destination = transform.position;
-                }
-                else
-                {
-                    shotWaitCounter = waitBetweenShots;
+                    else
+                    {
+                        shotWaitCounter = waitBetweenShots;
+                    }
                 }
                 anim.SetBool("isMoving", false);
             }
