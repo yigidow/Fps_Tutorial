@@ -15,7 +15,7 @@ public class BulletController : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame

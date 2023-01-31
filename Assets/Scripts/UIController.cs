@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
     public Slider healthBar;
     public TextMeshProUGUI health;
 
+    public TextMeshProUGUI ammo;
+
     private void Awake()
     {
         instance = this;

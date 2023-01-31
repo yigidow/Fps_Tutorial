@@ -14,17 +14,29 @@ public class PlayerControlller : MonoBehaviour
     public Transform camTrans;
 
     public float mouseSens;
-    public bool invertX;
-    public bool invertY;
+    private bool invertX;
+    private bool invertY;
 
-    public bool canJump, canDoubleJump;
+    private bool canJump, canDoubleJump;
     public Transform groundCheck;
     public LayerMask whatIsGround;
 
     public Animator animate;
 
-    public GameObject bullet;
     public Transform firePoint;
+
+    public GunController myGun;
+    public List<GunController> myGuns = new List<GunController>();
+    public int currentGun;
+
+    public List<GunController> unlockGuns = new List<GunController>();
+
+    public Transform zoomPoint, gunHolder;
+    private Vector3 gunStartPos;
+    public float zoomSpeed = 2f;
+
+ 
+
 
     private void Awake()
     {
@@ -33,7 +45,10 @@ public class PlayerControlller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentGun--;
+        SwitchGun();
+
+        gunStartPos = gunHolder.localPosition;
     }
 
     // Update is called once per frame
@@ -104,7 +119,8 @@ public class PlayerControlller : MonoBehaviour
 
         //For Shooting
 
-        if (Input.GetMouseButtonDown(0))
+        //Single Shots
+        if (Input.GetMouseButtonDown(0) && myGun.fireCounter <= 0)
         {
             RaycastHit hit;
 
@@ -118,8 +134,104 @@ public class PlayerControlller : MonoBehaviour
             {
                 firePoint.LookAt(camTrans.position + (camTrans.forward * 50));
             }
+            FireShot();
 
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
+
+        //swtich gun
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            SwitchGun();
+            CamController.instance.ZoomOut();
+        }
+        //Zoom
+        if (Input.GetMouseButtonDown(1))
+        {
+            CamController.instance.ZoomIn(myGun.zoomAmount);
+            gunHolder.localPosition = Vector3.MoveTowards(gunHolder.localPosition, gunStartPos, zoomSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            gunHolder.position = Vector3.MoveTowards(gunHolder.position, zoomPoint.position, zoomSpeed * Time.deltaTime);
+        }
+        else
+        {
+            gunHolder.localPosition = Vector3.MoveTowards(gunHolder.localPosition, gunStartPos, zoomSpeed * Time.deltaTime);
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            CamController.instance.ZoomOut();
+        }
+
+        //Repeating Shots
+        if (Input.GetMouseButton(0) && myGun.canAutoFire)
+        {
+            if(myGun.fireCounter <= 0)
+            {
+                FireShot();
+            }
+        }
+    }
+
+    public void FireShot()
+    {
+        if(myGun.ammoCount > 0)
+        {
+            myGun.ammoCount--;
+            Instantiate(myGun.bullet, firePoint.position, firePoint.rotation);
+            myGun.fireCounter = myGun.fireRate;
+            UIController.instance.ammo.text = "AMMO:" + myGun.ammoCount;
+        }
+    }
+
+    public void SwitchGun()
+    {
+        myGun.gameObject.SetActive(false);
+        currentGun++;
+
+        if(currentGun >= myGuns.Count)
+        {
+            currentGun = 0;
+        }
+        myGun = myGuns[currentGun];
+        myGun.gameObject.SetActive(true);
+
+        UIController.instance.ammo.text = "AMMO:" + myGun.ammoCount;
+
+        firePoint.position = myGun.firePoint.position;
+
+    }
+
+    public void UnlockGun(string gunName)
+    {
+        bool gunUnlocked = false;
+
+        if(unlockGuns.Count > 0)
+        {
+            for(int i = 0; i < unlockGuns.Count; i++)
+            {
+                if (unlockGuns[i].gunName == gunName)
+                {
+                    gunUnlocked = true;
+
+                    myGuns.Add(unlockGuns[i]);
+
+                    unlockGuns.RemoveAt(i);
+
+                    i = unlockGuns.Count; 
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("nope");
+        }
+
+        if(gunUnlocked == true)
+        {
+            currentGun = myGuns.Count - 2;
+            SwitchGun();
         }
     }
 }

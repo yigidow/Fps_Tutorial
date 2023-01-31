@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPick : MonoBehaviour
+public class WeaponPick : MonoBehaviour
 {
+    public string gunName;
     private bool collected;
-    public int healAmount;
-
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !collected)
+        if (other.tag == "Player" && !collected)
         {
-            PlayerHealth.instance.HealPLayer(healAmount);
+            PlayerControlller.instance.UnlockGun(gunName);
             collected = true;
             Destroy(gameObject);
         }
