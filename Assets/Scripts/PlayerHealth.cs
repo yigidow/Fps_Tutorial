@@ -52,4 +52,17 @@ public class PlayerHealth : MonoBehaviour
             UIController.instance.health.text = "HEALTH:" + currentHealth + "/" + maxHealth;
         }
     }
+
+    public void HealPLayer(int healAmount)
+    {
+        currentHealth += healAmount;
+
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UIController.instance.healthBar.value = currentHealth;
+        UIController.instance.health.text = "HEALTH:" + currentHealth + "/" + maxHealth;
+    }
 }

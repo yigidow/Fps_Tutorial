@@ -12,7 +12,8 @@ public class CheckPointController : MonoBehaviour
         {
             if (PlayerPrefs.GetString(SceneManager.GetActiveScene().name + "_cp") == cpName)
             {
-                PlayerControlller.instance.transform.position = transform.position;
+                PlayerControlller.instance.transform.position = this.transform.position;
+                Debug.Log("player start" + cpName);
             }
         }
     }
@@ -29,6 +30,7 @@ public class CheckPointController : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             PlayerPrefs.SetString(SceneManager.GetActiveScene().name + "_cp", cpName);
+            Debug.Log("player hit" + cpName);
         }
     }
 }
