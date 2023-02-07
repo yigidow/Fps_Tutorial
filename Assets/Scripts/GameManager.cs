@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseUnPause();
+        }
     }
     public void PlayerDied()
     {
@@ -34,5 +37,33 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(waitAfterDied);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseUnPause()
+    {
+        if (UIController.instance.pauseScreen.activeInHierarchy)
+        {
+            UIController.instance.pauseScreen.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+
+            Time.timeScale = 1f;
+
+            PlayerControlller.instance.footStepFast.Play();
+            PlayerControlller.instance.footStepSlow.Play();
+            AudioManager.instance.PlayBgm();
+        }
+        else
+        {
+            UIController.instance.pauseScreen.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+
+            Time.timeScale = 0;
+
+            AudioManager.instance.stopBgm();
+            PlayerControlller.instance.footStepFast.Stop();
+            PlayerControlller.instance.footStepSlow.Stop();
+        }
     }
 }

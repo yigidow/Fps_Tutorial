@@ -14,6 +14,8 @@ public class HealthPick : MonoBehaviour
             PlayerHealth.instance.HealPLayer(healAmount);
             collected = true;
             Destroy(gameObject);
+
+            AudioManager.instance.PlaySfx(5);
         }
     }
 }

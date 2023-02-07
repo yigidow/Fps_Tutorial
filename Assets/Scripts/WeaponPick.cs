@@ -13,6 +13,8 @@ public class WeaponPick : MonoBehaviour
             PlayerControlller.instance.UnlockGun(gunName);
             collected = true;
             Destroy(gameObject);
+
+            AudioManager.instance.PlaySfx(4);
         }
     }
 }

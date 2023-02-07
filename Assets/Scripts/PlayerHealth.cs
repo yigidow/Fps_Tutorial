@@ -35,7 +35,11 @@ public class PlayerHealth : MonoBehaviour
     {
         if(invisCount <= 0)
         {
+            AudioManager.instance.PlaySfx(7);
+
             currentHealth -= damage;
+
+            UIController.instance.showDamage();
 
             if (currentHealth <= 0)
             {
@@ -44,6 +48,9 @@ public class PlayerHealth : MonoBehaviour
                 currentHealth = 0;
 
                 GameManager.instance.PlayerDied();
+                AudioManager.instance.stopBgm();
+                AudioManager.instance.StopSfx(7);
+                AudioManager.instance.PlaySfx(6);
             }
 
             invisCount = invisTime;
