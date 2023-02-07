@@ -107,6 +107,8 @@ public class PlayerControlller : MonoBehaviour
             {
                 bounce = false;
                 moveInput.y = bounceAmount;
+
+                canDoubleJump = true;
             }
 
             charCon.Move(moveInput * Time.deltaTime);
