@@ -1620,6 +1620,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6139968751434373946, guid: 29791ccfbb4f92e41bf079aceb364d4e, type: 3}
+      propertyPath: currentHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6139968751434373947, guid: 29791ccfbb4f92e41bf079aceb364d4e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1663,6 +1667,14 @@ PrefabInstance:
     - target: {fileID: 6139968751434373947, guid: 29791ccfbb4f92e41bf079aceb364d4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139968751434373949, guid: 29791ccfbb4f92e41bf079aceb364d4e, type: 3}
+      propertyPath: distanceToLose
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139968751434373949, guid: 29791ccfbb4f92e41bf079aceb364d4e, type: 3}
+      propertyPath: distanceToChase
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -1781,6 +1793,10 @@ PrefabInstance:
     - target: {fileID: 8411890108133359119, guid: 95547998e609dde4c94675acaa69314b, type: 3}
       propertyPath: m_Name
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 8411890108133359119, guid: 95547998e609dde4c94675acaa69314b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

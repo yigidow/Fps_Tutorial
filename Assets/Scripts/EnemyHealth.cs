@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int currentHealth = 3;
+
+    public EnemyController ec;
     void Start()
     {
         
@@ -19,6 +21,11 @@ public class EnemyHealth : MonoBehaviour
     public void DamageEnemy(int damageAmount)
     {
         currentHealth -= damageAmount;
+
+        if(ec != null)
+        {
+            ec.GetShot();
+        }
 
         if(currentHealth <= 0) 
         {

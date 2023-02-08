@@ -1,0 +1,2 @@
+-Enemy Controller uses navMesh to chase player so envoirment navMesh map should be created for new level designs
+- Ground layers should be assigned to jump

@@ -26,6 +26,8 @@ public class EnemyController : MonoBehaviour
 
     public Animator anim;
 
+    private bool wasShot;
+
     void Start()
     {
         startPoint = transform.position;
@@ -82,9 +84,15 @@ public class EnemyController : MonoBehaviour
 
             if (Vector3.Distance(transform.position, PlayerControlller.instance.transform.position) > distanceToLose)
             {
-                chasing = false;
-
-                chaseCounter = keepChasingTime;
+                if (!wasShot)
+                {
+                    chasing = false;
+                     
+                }
+            }
+            else
+            {
+                wasShot = false;
             }
 
             if (shotWaitCounter > 0)
@@ -141,5 +149,11 @@ public class EnemyController : MonoBehaviour
                 anim.SetBool("isMoving", false);
             }
         } 
+    }
+
+    public void GetShot()
+    {
+        wasShot = true;
+        chasing = true;
     }
 }

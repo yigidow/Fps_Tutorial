@@ -112,7 +112,7 @@ Transform:
   - {fileID: 6139968751094990059}
   - {fileID: 6139968751543895496}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &6139968751434373830
 CapsuleCollider:
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 4
+  ec: {fileID: 6139968751434373949}
 --- !u!114 &6139968751434373949
 MonoBehaviour:
   m_ObjectHideFlags: 0
