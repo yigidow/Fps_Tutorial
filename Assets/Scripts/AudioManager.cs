@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    public AudioSource bgm;
+    public AudioSource bgm, victory;
     public AudioSource[] sfx;
 
     private void Awake()
@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     public void PlayBgm()
     {
@@ -31,7 +31,11 @@ public class AudioManager : MonoBehaviour
     {
         bgm.Stop();
     }
-
+    public void playLevelVictory()
+    {
+        stopBgm();
+        victory.Play();
+    }
     public void PlaySfx(int sfxNo)
     {
         sfx[sfxNo].Stop();
@@ -41,5 +45,13 @@ public class AudioManager : MonoBehaviour
     public void StopSfx(int sfxNo)
     {
         sfx[sfxNo].Stop();
+    }
+
+    public void stopAllSfx()
+    {
+        foreach (AudioSource allSfx in sfx)
+        {
+            allSfx.Stop();
+        }
     }
 }

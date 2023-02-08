@@ -23,7 +23,7 @@ public class CheckPointController : MonoBehaviour
         {
             PlayerPrefs.SetString(SceneManager.GetActiveScene().name + "_cp", "");
         }
-        
+
     }
     private void OnTriggerEnter(Collider other)
     {

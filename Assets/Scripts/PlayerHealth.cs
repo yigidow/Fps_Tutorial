@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void DamagePayer(int damage)
     {
-        if(invisCount <= 0)
+        if(invisCount <= 0 && !GameManager.instance.levelEnding)
         {
             AudioManager.instance.PlaySfx(7);
 

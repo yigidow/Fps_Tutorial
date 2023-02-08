@@ -58,7 +58,7 @@ public class PlayerControlller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!UIController.instance.pauseScreen.activeInHierarchy)
+        if (!UIController.instance.pauseScreen.activeInHierarchy && !GameManager.instance.levelEnding)
         {
             float yStore = moveInput.y;
 

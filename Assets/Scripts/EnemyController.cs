@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour
         targetPoint = PlayerControlller.instance.transform.position;
         //targetPoint.y = transform.position.y;
 
-        if (!chasing)
+        if (!chasing && !GameManager.instance.levelEnding)
         {
             if (Vector3.Distance(transform.position, PlayerControlller.instance.transform.position) < distanceToChase)
             {

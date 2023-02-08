@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public float waitAfterDied = 2f;
 
+    public bool levelEnding;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //Cursor.visible = false;
+        AudioManager.instance.stopAllSfx();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
