@@ -2,41 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamController : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public static CamController instance;
-
-    public Transform target;
-
-    private float startFOV, targetFOV;
-    public float zoomSpeed = 1f;
-    public Camera myCam;
-
-    private void Awake()
+    public class CamController : MonoBehaviour
     {
-        instance = this;
-    }
-    void Start()
-    {
-        startFOV = myCam.fieldOfView;
-        targetFOV = startFOV;
-    }
+        public static CamController instance;
 
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        transform.position = target.position;
-        transform.rotation = target.rotation;
+        public Transform target;
 
-        myCam.fieldOfView = Mathf.Lerp(myCam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
-    }
+        private float startFOV, targetFOV;
+        public float zoomSpeed = 1f;
+        public Camera myCam;
 
-    public void ZoomIn(float newZoom)
-    {
-        targetFOV = newZoom;
-    }
-    public void ZoomOut()
-    {
-        targetFOV = startFOV;
+        private void Awake()
+        {
+            instance = this;
+        }
+        void Start()
+        {
+            startFOV = myCam.fieldOfView;
+            targetFOV = startFOV;
+        }
+
+        // Update is called once per frame
+        void LateUpdate()
+        {
+            transform.position = target.position;
+            transform.rotation = target.rotation;
+
+            myCam.fieldOfView = Mathf.Lerp(myCam.fieldOfView, targetFOV, zoomSpeed * Time.deltaTime);
+        }
+
+        public void ZoomIn(float newZoom)
+        {
+            targetFOV = newZoom;
+        }
+        public void ZoomOut()
+        {
+            targetFOV = startFOV;
+        }
     }
 }

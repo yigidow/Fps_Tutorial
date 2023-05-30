@@ -3,35 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CheckPointController : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public string cpName;
-    void Start()
+    public class CheckPointController : MonoBehaviour
     {
-        if (PlayerPrefs.HasKey(SceneManager.GetActiveScene().name + "_cp"))
+        public string cpName;
+        void Start()
         {
-            if (PlayerPrefs.GetString(SceneManager.GetActiveScene().name + "_cp") == cpName)
+            if (PlayerPrefs.HasKey(SceneManager.GetActiveScene().name + "_cp"))
             {
-                PlayerControlller.instance.transform.position = this.transform.position;
-                Debug.Log("player start" + cpName);
+                if (PlayerPrefs.GetString(SceneManager.GetActiveScene().name + "_cp") == cpName)
+                {
+                    PlayerControlller.instance.transform.position = transform.position;
+                    Debug.Log("player start" + cpName);
+                }
             }
         }
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
+        void Update()
         {
-            PlayerPrefs.SetString(SceneManager.GetActiveScene().name + "_cp", "");
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                PlayerPrefs.SetString(SceneManager.GetActiveScene().name + "_cp", "");
+            }
+
         }
-
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Player")
+        private void OnTriggerEnter(Collider other)
         {
-            PlayerPrefs.SetString(SceneManager.GetActiveScene().name + "_cp", cpName);
+            if (other.gameObject.tag == "Player")
+            {
+                PlayerPrefs.SetString(SceneManager.GetActiveScene().name + "_cp", cpName);
 
-            AudioManager.instance.PlaySfx(1);
+                AudioManager.instance.PlaySfx(1);
+            }
         }
     }
 }

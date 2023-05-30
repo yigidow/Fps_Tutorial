@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YY_Games_Scripts;
 
 public class PauseMenu : MonoBehaviour
 {

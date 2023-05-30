@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPick : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public string gunName;
-    private bool collected;
-    private void OnTriggerEnter(Collider other)
+    public class WeaponPick : MonoBehaviour
     {
-        if (other.tag == "Player" && !collected)
+        public string gunName;
+        private bool collected;
+        private void OnTriggerEnter(Collider other)
         {
-            PlayerControlller.instance.UnlockGun(gunName);
-            collected = true;
-            Destroy(gameObject);
+            if (other.tag == "Player" && !collected)
+            {
+                PlayerControlller.instance.UnlockGun(gunName);
+                collected = true;
+                Destroy(gameObject);
 
-            AudioManager.instance.PlaySfx(4);
+                AudioManager.instance.PlaySfx(4);
+            }
         }
     }
 }

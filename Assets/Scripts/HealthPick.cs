@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPick : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    private bool collected;
-    public int healAmount;
-
-    private void OnTriggerEnter(Collider other)
+    public class HealthPick : MonoBehaviour
     {
-        if(other.tag == "Player" && !collected)
-        {
-            PlayerHealth.instance.HealPLayer(healAmount);
-            collected = true;
-            Destroy(gameObject);
+        private bool collected;
+        public int healAmount;
 
-            AudioManager.instance.PlaySfx(5);
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player" && !collected)
+            {
+                PlayerHealth.instance.HealPLayer(healAmount);
+                collected = true;
+                Destroy(gameObject);
+
+                AudioManager.instance.PlaySfx(5);
+            }
         }
     }
 }

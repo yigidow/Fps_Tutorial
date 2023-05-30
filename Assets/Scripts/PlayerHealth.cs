@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YY_Games_Scripts;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
                 currentHealth = 0;
 
                 GameManager.instance.PlayerDied();
-                AudioManager.instance.stopBgm();
+                AudioManager.instance.StopBgm();
                 AudioManager.instance.StopSfx(7);
                 AudioManager.instance.PlaySfx(6);
             }

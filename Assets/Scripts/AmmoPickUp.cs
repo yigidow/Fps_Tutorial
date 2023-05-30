@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoPickUp : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    private bool collected;
-    private void OnTriggerEnter(Collider other)
+    public class AmmoPickUp : MonoBehaviour
     {
-        if (other.tag == "Player" && !collected)
+        private bool collected;
+        private void OnTriggerEnter(Collider other)
         {
-            PlayerControlller.instance.myGun.GetAmmo();
-            collected = true;
-            Destroy(gameObject);
+            if (other.tag == "Player" && !collected)
+            {
+                PlayerControlller.instance.myGun.GetAmmo();
+                collected = true;
+                Destroy(gameObject);
 
-            AudioManager.instance.PlaySfx(3);
+                AudioManager.instance.PlaySfx(3);
+            }
         }
-    } 
+    }
 }
+

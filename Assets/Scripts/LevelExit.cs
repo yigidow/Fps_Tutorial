@@ -3,42 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelExit : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public string nextLevel;
-
-    public float waitTime;
-
-    void Start()
+    public class LevelExit : MonoBehaviour
     {
-        
-    }
+        public string nextLevel;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        public float waitTime;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
+        void Start()
         {
-            GameManager.instance.levelEnding = true;
 
-            StartCoroutine(EndLevel());
-
-            AudioManager.instance.stopAllSfx();
-            AudioManager.instance.playLevelVictory();
         }
-    }
 
-    private IEnumerator EndLevel()
-    {
-        PlayerPrefs.SetString(nextLevel + "_cp", "");
+        // Update is called once per frame
+        void Update()
+        {
 
-        yield return new WaitForSeconds(waitTime);
+        }
 
-        SceneManager.LoadScene(nextLevel);
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                GameManager.instance.levelEnding = true;
+
+                StartCoroutine(EndLevel());
+
+                AudioManager.instance.StopAllSfx();
+                AudioManager.instance.PlayLevelVictory();
+            }
+        }
+
+        private IEnumerator EndLevel()
+        {
+            PlayerPrefs.SetString(nextLevel + "_cp", "");
+
+            yield return new WaitForSeconds(waitTime);
+
+            SceneManager.LoadScene(nextLevel);
+        }
     }
 }

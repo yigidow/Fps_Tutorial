@@ -2,37 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunController : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public GameObject bullet;
-    public Transform firePoint;
-
-    public bool canAutoFire;
-    public float fireRate;
-
-    public int ammoCount , ammoPickAmount;
-
-    public float zoomAmount;
-
-    public string gunName;
-
-    [HideInInspector] public double fireCounter;
-    void Start()
+    public class GunController : MonoBehaviour
     {
-        UIController.instance.ammo.text = "AMMO:" + ammoCount;
-    }
+        public GameObject bullet;
+        public Transform firePoint;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(fireCounter > 0)
+        public bool canAutoFire;
+        public float fireRate;
+
+        public int ammoCount, ammoPickAmount;
+
+        public float zoomAmount;
+
+        public string gunName;
+
+        [HideInInspector] public double fireCounter;
+        void Start()
         {
-            fireCounter -= Time.deltaTime ;
+            UIController.instance.ammo.text = "AMMO:" + ammoCount;
         }
-    }
-    public void GetAmmo()
-    {
-        ammoCount += ammoPickAmount;
-        UIController.instance.ammo.text = "AMMO:" + ammoCount;
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (fireCounter > 0)
+            {
+                fireCounter -= Time.deltaTime;
+            }
+        }
+        public void GetAmmo()
+        {
+            ammoCount += ammoPickAmount;
+            UIController.instance.ammo.text = "AMMO:" + ammoCount;
+        }
     }
 }

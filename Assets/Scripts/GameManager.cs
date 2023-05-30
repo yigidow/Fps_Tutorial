@@ -3,69 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public static GameManager instance;
-
-    public float waitAfterDied = 2f;
-
-    public bool levelEnding;
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        instance = this;
-    }
-    void Start()
-    {
-        AudioManager.instance.stopAllSfx();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+        public static GameManager instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public float waitAfterDied = 2f;
+
+        public bool levelEnding;
+
+        private void Awake()
         {
-            PauseUnPause();
+            instance = this;
         }
-    }
-    public void PlayerDied()
-    {
-        StartCoroutine(PlayerDeathCorutine());
-    }
-
-    public IEnumerator PlayerDeathCorutine()
-    {
-        yield return new WaitForSeconds(waitAfterDied);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void PauseUnPause()
-    {
-        if (UIController.instance.pauseScreen.activeInHierarchy)
+        void Start()
         {
-            UIController.instance.pauseScreen.SetActive(false);
-
+            AudioManager.instance.StopAllSfx();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            Time.timeScale = 1f;
-
-            PlayerControlller.instance.footStepFast.Play();
-            PlayerControlller.instance.footStepSlow.Play();
-            AudioManager.instance.PlayBgm();
         }
-        else
+
+        // Update is called once per frame
+        void Update()
         {
-            UIController.instance.pauseScreen.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PauseUnPause();
+            }
+        }
+        public void PlayerDied()
+        {
+            StartCoroutine(PlayerDeathCorutine());
+        }
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0;
+        public IEnumerator PlayerDeathCorutine()
+        {
+            yield return new WaitForSeconds(waitAfterDied);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
-            AudioManager.instance.stopBgm();
-            PlayerControlller.instance.footStepFast.Stop();
-            PlayerControlller.instance.footStepSlow.Stop();
+        public void PauseUnPause()
+        {
+            if (UIController.instance.pauseScreen.activeInHierarchy)
+            {
+                UIController.instance.pauseScreen.SetActive(false);
+
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Time.timeScale = 1f;
+
+                PlayerControlller.instance.footStepFast.Play();
+                PlayerControlller.instance.footStepSlow.Play();
+                AudioManager.instance.PlayBgm();
+            }
+            else
+            {
+                UIController.instance.pauseScreen.SetActive(true);
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 0;
+
+                AudioManager.instance.StopBgm();
+                PlayerControlller.instance.footStepFast.Stop();
+                PlayerControlller.instance.footStepSlow.Stop();
+            }
         }
     }
 }

@@ -2,50 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public float bulletSpeed, lifeTime;
-    public GameObject impactEffect;
-    public Rigidbody myRigidbody;
-
-    public int damage = 2;
-
-    public bool damageEnemy;
-    public bool damagePlayer;
-
-    void Start()
+    public class BulletController : MonoBehaviour
     {
-        
-    }
+        public float bulletSpeed, lifeTime;
+        public GameObject impactEffect;
+        public Rigidbody myRigidbody;
 
-    // Update is called once per frame
-    void Update()
-    {
-        myRigidbody.velocity = transform.forward * bulletSpeed;
-        lifeTime -= Time.deltaTime;
+        public int damage = 2;
 
-        if(lifeTime <= 0)
+        public bool damageEnemy;
+        public bool damagePlayer;
+
+        void Start()
         {
-            Destroy(this.gameObject);
-        }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Enemy" && damageEnemy)
-        {
-            other.gameObject.GetComponent<EnemyHealth>().DamageEnemy(damage);
         }
 
-        if(other.gameObject.tag == "EnemyHead" && damageEnemy)
+        // Update is called once per frame
+        void Update()
         {
-            other.transform.parent.GetComponent<EnemyHealth>().DamageEnemy(damage*2);
+            myRigidbody.velocity = transform.forward * bulletSpeed;
+            lifeTime -= Time.deltaTime;
+
+            if (lifeTime <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
-        if (other.gameObject.tag == "Player" && damagePlayer)
+
+        private void OnTriggerEnter(Collider other)
         {
-            PlayerHealth.instance.DamagePayer(damage);
+            if (other.gameObject.tag == "Enemy" && damageEnemy)
+            {
+                other.gameObject.GetComponent<EnemyHealth>().DamageEnemy(damage);
+            }
+
+            if (other.gameObject.tag == "EnemyHead" && damageEnemy)
+            {
+                other.transform.parent.GetComponent<EnemyHealth>().DamageEnemy(damage * 2);
+            }
+            if (other.gameObject.tag == "Player" && damagePlayer)
+            {
+                PlayerHealth.instance.DamagePayer(damage);
+            }
+            Destroy(gameObject);
+            Instantiate(impactEffect, transform.position + transform.forward * -bulletSpeed * Time.deltaTime, transform.rotation);
         }
-        Destroy(this.gameObject);
-        Instantiate(impactEffect, transform.position + (transform.forward * -bulletSpeed * Time.deltaTime), transform.rotation);
     }
 }

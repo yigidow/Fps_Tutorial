@@ -2,22 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetMovement : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public bool shouldMove, shouldRotate;
-    public float moveSpeed, rotateSpeed;
-    void Start()
+    public class TargetMovement : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (shouldMove)
+        public bool shouldMove, shouldRotate;
+        public float moveSpeed, rotateSpeed;
+        void Start()
         {
-            transform.position += new Vector3(moveSpeed, 0f, 0f) * Time.deltaTime;
+
         }
-        
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (shouldMove)
+            {
+                transform.position += new Vector3(moveSpeed, 0f, 0f) * Time.deltaTime;
+            }
+
+        }
     }
 }

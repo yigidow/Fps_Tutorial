@@ -4,52 +4,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIController : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public static UIController instance;
-
-    public Slider healthBar;
-    public TextMeshProUGUI health;
-
-    public TextMeshProUGUI ammo;
-
-    public Image damageEffect;
-    public float damageAlpha =  0.25f, damageFadeSpeed = 2f;
-
-    public GameObject pauseScreen;
-
-    public Image fadeImg;
-    public float fadeSpeed = 1f;
-
-    private void Awake()
+    public class UIController : MonoBehaviour
     {
-        instance = this;
-    }
-    void Start()
-    {
-        
-    }
+        public static UIController instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(damageEffect.color.a != 0)
+        public Slider healthBar;
+        public TextMeshProUGUI health;
+
+        public TextMeshProUGUI ammo;
+
+        public Image damageEffect;
+        public float damageAlpha = 0.25f, damageFadeSpeed = 2f;
+
+        public GameObject pauseScreen;
+
+        public Image fadeImg;
+        public float fadeSpeed = 1f;
+
+        private void Awake()
         {
-            damageEffect.color = new Color(damageEffect.color.r, damageEffect.color.g, damageEffect.color.b, Mathf.MoveTowards(damageEffect.color.a, 0f, damageFadeSpeed * Time.deltaTime));
+            instance = this;
+        }
+        void Start()
+        {
+
         }
 
-        if (!GameManager.instance.levelEnding)
+        // Update is called once per frame
+        void Update()
         {
-            fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, Mathf.MoveTowards(fadeImg.color.a, 0f, fadeSpeed * Time.deltaTime));
-        }
-        else
-        {
-            fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, Mathf.MoveTowards(fadeImg.color.a, 1f, fadeSpeed * Time.deltaTime));
-        }
-    }
+            if (damageEffect.color.a != 0)
+            {
+                damageEffect.color = new Color(damageEffect.color.r, damageEffect.color.g, damageEffect.color.b, Mathf.MoveTowards(damageEffect.color.a, 0f, damageFadeSpeed * Time.deltaTime));
+            }
 
-    public void showDamage()
-    {
-        damageEffect.color = new Color(damageEffect.color.r, damageEffect.color.g, damageEffect.color.b, damageAlpha); 
+            if (!GameManager.instance.levelEnding)
+            {
+                fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, Mathf.MoveTowards(fadeImg.color.a, 0f, fadeSpeed * Time.deltaTime));
+            }
+            else
+            {
+                fadeImg.color = new Color(fadeImg.color.r, fadeImg.color.g, fadeImg.color.b, Mathf.MoveTowards(fadeImg.color.a, 1f, fadeSpeed * Time.deltaTime));
+            }
+        }
+
+        public void showDamage()
+        {
+            damageEffect.color = new Color(damageEffect.color.r, damageEffect.color.g, damageEffect.color.b, damageAlpha);
+        }
     }
 }
