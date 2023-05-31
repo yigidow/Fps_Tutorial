@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c246db556e46fc4f9913e4ca9400e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevel: TestScene
+  firstLevel: TestScene_Karlson
 --- !u!1 &1634660858
 GameObject:
   m_ObjectHideFlags: 0

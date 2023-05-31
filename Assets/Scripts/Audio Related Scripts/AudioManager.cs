@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace YY_Games_Scripts
@@ -7,38 +5,44 @@ namespace YY_Games_Scripts
     public class AudioManager : MonoBehaviour
     {
         #region Variables and References
+        //Singleton
         public static AudioManager instance;
 
-        public AudioSource bgm, victory;
+        [Header("Musics")]
+        public AudioSource backgroundMusic, victoryMusic;
+
+        [Header("Sound Effects")]
         public AudioSource[] sfx;
         #endregion
         #region Functions to play musics and sfxs
         //Function to play background music
         public void PlayBgm()
         {
-            bgm.Play();
+            backgroundMusic.Play();
         }
         //Function to stop background music
         public void StopBgm()
         {
-            bgm.Stop();
+            backgroundMusic.Stop();
         }
+        //Function to play level victory music
         public void PlayLevelVictory()
         {
             StopBgm();
-            victory.Play();
+            victoryMusic.Play();
         }
+        //Function to play Sfxs music
         public void PlaySfx(int sfxNo)
         {
             sfx[sfxNo].Stop();
             sfx[sfxNo].Play();
         }
-
+        //Function to stop spesific Sfx 
         public void StopSfx(int sfxNo)
         {
             sfx[sfxNo].Stop();
         }
-        #endregion
+        //Function to stop all Sfxs 
         public void StopAllSfx()
         {
             foreach (AudioSource allSfx in sfx)
@@ -47,23 +51,13 @@ namespace YY_Games_Scripts
             }
         }
 
+        #endregion
         #region Unity Functions
         private void Awake()
         {
             instance = this;
         }
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
         #endregion
     }
-
 }
 
