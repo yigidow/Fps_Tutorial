@@ -1,76 +1,86 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using YY_Games_Scripts;
 
-public class PlayerHealth : MonoBehaviour
+namespace YY_Games_Scripts
 {
-    public static PlayerHealth instance;
-
-    public int maxHealth, currentHealth;
-
-    public float invisTime;
-    private float invisCount;
-
-    private void Awake()
+    public class PlayerHealth : MonoBehaviour
     {
-        instance = this;
-    }
-    void Start()
-    {
-        currentHealth = maxHealth;
-        UIController.instance.healthBar.maxValue = maxHealth;
-        UIController.instance.health.text = "HEALTH:" + currentHealth + "/" + maxHealth;
-    }
+        #region Variables and References
+        //Singleton
+        public static PlayerHealth instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(invisCount > 0)
+        [Header("Player Health variables")]
+        public int maxHealth;
+        public int currentHealth;
+
+        [Header("Variables to have invisible frames")]
+        public float invisTime;
+        private float invisCount;
+
+        #endregion
+        #region Functions to Damage and Increase the health of player
+        public void DamagePayer(int damage)
         {
-            invisCount -= Time.deltaTime;
-        }
-    }
-
-    public void DamagePayer(int damage)
-    {
-        if(invisCount <= 0 && !GameManager.instance.levelEnding)
-        {
-            AudioManager.instance.PlaySfx(7);
-
-            currentHealth -= damage;
-
-            UIController.instance.showDamage();
-
-            if (currentHealth <= 0)
+            if (invisCount <= 0 && !GameManager.instance.levelEnding)
             {
-                gameObject.SetActive(false);
+                AudioManager.instance.PlaySfx(7);
 
-                currentHealth = 0;
+                currentHealth -= damage;
 
-                GameManager.instance.PlayerDied();
-                AudioManager.instance.StopBgm();
-                AudioManager.instance.StopSfx(7);
-                AudioManager.instance.PlaySfx(6);
+                UIController.instance.showDamage();
+
+                if (currentHealth <= 0)
+                {
+                    gameObject.SetActive(false);
+
+                    currentHealth = 0;
+
+                    GameManager.instance.PlayerDied();
+                    AudioManager.instance.StopBgm();
+                    AudioManager.instance.StopSfx(7);
+                    AudioManager.instance.PlaySfx(6);
+                }
+
+                invisCount = invisTime;
+
+                UIController.instance.healthBar.value = currentHealth;
+                UIController.instance.health.text = "HEALTH:" + currentHealth + "/" + maxHealth;
             }
+        }
 
-            invisCount = invisTime;
+        public void HealPLayer(int healAmount)
+        {
+            currentHealth += healAmount;
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
 
             UIController.instance.healthBar.value = currentHealth;
             UIController.instance.health.text = "HEALTH:" + currentHealth + "/" + maxHealth;
         }
-    }
+        #endregion
 
-    public void HealPLayer(int healAmount)
-    {
-        currentHealth += healAmount;
-
-        if(currentHealth > maxHealth)
+        #region Unity Functions
+        private void Awake()
+        {
+            instance = this;
+        }
+        void Start()
         {
             currentHealth = maxHealth;
+            UIController.instance.healthBar.maxValue = maxHealth;
+            UIController.instance.health.text = "HEALTH:" + currentHealth + "/" + maxHealth;
         }
 
-        UIController.instance.healthBar.value = currentHealth;
-        UIController.instance.health.text = "HEALTH:" + currentHealth + "/" + maxHealth;
+        // Update is called once per frame
+        void Update()
+        {
+            if (invisCount > 0)
+            {
+                invisCount -= Time.deltaTime;
+            }
+        }
+        #endregion
     }
 }

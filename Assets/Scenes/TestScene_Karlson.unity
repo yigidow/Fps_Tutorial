@@ -876,7 +876,7 @@ Transform:
   m_GameObject: {fileID: 277905397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9, y: 9, z: 9}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 945261423}
@@ -10534,15 +10534,15 @@ MonoBehaviour:
   gravityMod: 2
   jumpPow: 10
   charCon: {fileID: 1039290774}
-  camTrans: {fileID: 707888145}
   mouseSens: 2
+  camTrans: {fileID: 707888145}
+  maxViewAng: 60
   groundCheck: {fileID: 443050788}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  animate: {fileID: 1039290776}
   firePoint: {fileID: 1061729877}
-  myGun: {fileID: 1675478380}
+  myGun: {fileID: 1417541725}
   myGuns:
   - {fileID: 1417541725}
   - {fileID: 1675478380}
@@ -10553,9 +10553,9 @@ MonoBehaviour:
   zoomPoint: {fileID: 363530865}
   gunHolder: {fileID: 1704710944}
   zoomSpeed: 2
+  animate: {fileID: 1039290776}
   footStepFast: {fileID: 698416738}
   footStepSlow: {fileID: 1110635083}
-  maxViewAng: 60
 --- !u!143 &1039290774
 CharacterController:
   m_ObjectHideFlags: 0
@@ -10582,7 +10582,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039290772}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -69.66, y: 0, z: -72.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12289,9 +12289,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1488790142}
   - component: {fileID: 1488790143}
+  - component: {fileID: 1488790144}
+  - component: {fileID: 1488790145}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12330,6 +12332,33 @@ MonoBehaviour:
   rotateSpeed: 2.5
   turretGun: {fileID: 4263384749046313496}
   firePoint: {fileID: 593377045}
+--- !u!114 &1488790144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488790141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8603e82562b6d644af10b8baac614f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 3
+  ec: {fileID: 0}
+--- !u!65 &1488790145
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488790141}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.27, z: 1.42}
+  m_Center: {x: -0.09, y: 0.74, z: -0.16}
 --- !u!1 &1492665618
 GameObject:
   m_ObjectHideFlags: 0
@@ -13755,8 +13784,8 @@ MonoBehaviour:
   distanceToChase: 20
   distanceToLose: 30
   distanceToStop: 5
-  navAgent: {fileID: 1851182854}
   keepChasingTime: 5
+  navAgent: {fileID: 1851182854}
   bullet: {fileID: 9095017390996604405, guid: 1d073033403f5634ab1adcff1bed8c42, type: 3}
   firePoint: {fileID: 1382830290}
   fireRate: 0.3
