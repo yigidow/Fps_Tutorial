@@ -10553,6 +10553,9 @@ MonoBehaviour:
   zoomPoint: {fileID: 363530865}
   gunHolder: {fileID: 1704710944}
   zoomSpeed: 2
+  dashSpeed: 2
+  dashForce: 2.5
+  canDash: 1
   animate: {fileID: 1039290776}
   footStepFast: {fileID: 698416738}
   footStepSlow: {fileID: 1110635083}
@@ -13928,7 +13931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1897073819
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14532,7 +14535,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990105686}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -15962,6 +15965,10 @@ PrefabInstance:
     - target: {fileID: 7594611215719530695, guid: cb46da19e9380034faa5960b137915f1, type: 3}
       propertyPath: m_Name
       value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 7594611215719530695, guid: cb46da19e9380034faa5960b137915f1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +45,12 @@ namespace YY_Games_Scripts
         [Header("Variables to make player bounce at pad")]
         private float bounceAmount;
         private bool bounce;
+
+        [Header("Variables to make player dash")]
+        public float dashSpeed = 10f;
+        public float dashForce = 5f;
+        public bool canDash = true;
+        private Vector3 dashDirection = Vector3.zero;
 
         [Header("Player animation variables")]
         public Animator animate;
@@ -123,6 +130,14 @@ namespace YY_Games_Scripts
 
                 charCon.Move(moveInput * Time.deltaTime);
 
+                //Dash Movement
+
+                if (Input.GetKeyDown(KeyCode.LeftControl) && canDash)
+                {
+                    Dash();
+                    canDash = false;
+                    StartCoroutine(DashDelay());
+                }
                 //camera movement
 
                 Vector2 mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSens;
@@ -182,7 +197,7 @@ namespace YY_Games_Scripts
                     SwitchGunNext();
                     CamController.instance.ZoomOut();
                 }
-                if(Input.mouseScrollDelta.y > 0)
+                if (Input.mouseScrollDelta.y > 0)
                 {
                     SwitchGunNext();
                     CamController.instance.ZoomOut();
@@ -225,7 +240,6 @@ namespace YY_Games_Scripts
             }
         }
         #endregion
-
         #region Functions to Get and Shoot firearms
         public void FireShot()
         {
@@ -261,7 +275,7 @@ namespace YY_Games_Scripts
 
             if (currentGun < 0)
             {
-                currentGun = myGuns.Count-1;
+                currentGun = myGuns.Count - 1;
             }
             myGun = myGuns[currentGun];
             myGun.gameObject.SetActive(true);
@@ -303,13 +317,47 @@ namespace YY_Games_Scripts
             }
         }
         #endregion
-
-        #region Function to bounce
+        #region Function to additional movement
         public void Bounce(float bounceForce)
         {
             bounceAmount = bounceForce;
             bounce = true;
         }
+        public void Dash()
+        {
+            dashDirection = Vector3.zero;
+            if (Input.GetKey(KeyCode.W))
+                dashDirection += transform.forward;
+            if (Input.GetKey(KeyCode.S))
+                dashDirection -= transform.forward;
+            if (Input.GetKey(KeyCode.A))
+                dashDirection -= transform.right;
+            if (Input.GetKey(KeyCode.D))
+                dashDirection += transform.right;
+
+            dashDirection.Normalize();
+
+            StartCoroutine(DashMovement());
+        }
+
+        private IEnumerator DashMovement()
+        {
+            float elapsedTime = 0f;
+            Vector3 dashVector = dashDirection * dashSpeed * dashForce;
+
+            while (elapsedTime < 0.3f)
+            {
+                charCon.Move(dashVector * Time.deltaTime);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+        private IEnumerator DashDelay()
+        {
+            yield return new WaitForSeconds(1.5f);
+            canDash = true;
+        }
         #endregion
     }
-}
+    }
